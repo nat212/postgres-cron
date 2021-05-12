@@ -1,9 +1,22 @@
 FROM postgres:12
-MAINTAINER Natasha Draper <natasha@draper.net.za>
+LABEL version="1.2"
+LABEL maintainer="Natasha Draper <natasha@draper.net.za>"
 
 RUN apt update \
       && apt install -y --no-install-recommends \
-      git make build-essential ca-certificates postgresql-server-dev-$PG_MAJOR postgresql-plpython3-$PG_MAJOR
+      git \
+      make \
+      build-essential \
+      ca-certificates \
+      postgresql-server-dev-$PG_MAJOR \
+      postgresql-plpython3-$PG_MAJOR \
+      python3 \
+      python3-dev \
+      python3-pip \
+      python3-setuptools \
+      python3-wheel \
+      cmake \
+      && pip3 install face-recognition==1.3.0
 
 RUN git clone https://github.com/citusdata/pg_cron.git \
       && cd pg_cron && make && make install
